@@ -27,3 +27,4 @@ const isAllowedString = function(COMMENT_STRING, MAX_ALLOWED_COMMENT_LENGT) {
   }
 }
 
+test()
