@@ -61,19 +61,17 @@ const COMMENTS = [
 ]
 
 const createArr = () => {
-  let randomIndex = getRandomInRange(0, ID.length - 1);
-
-  console.log(randomIndex)
-
+  // let randomIndex = getRandomInRange(1, 25);
 
   return  {
-    id:ID[getRandomInRange],
+    id: getRandomInRange(1, 25),
     url: '',
     description: DESCRIPTIONS[getRandomInRange],
     likes: ''
   }
-
 }
+
+console.log(createArr())
 
 
 
