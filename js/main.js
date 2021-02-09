@@ -61,13 +61,12 @@ const COMMENTS = [
 ]
 
 const createArr = () => {
-  // let randomIndex = getRandomInRange(1, 25);
 
   return  {
     id: getRandomInRange(1, 25),
     url: '',
-    description: DESCRIPTIONS[getRandomInRange],
-    likes: ''
+    description: DESCRIPTIONS[getRandomInRange(0, DESCRIPTIONS.length)],
+    likes: getRandomInRange(40, 500)
   }
 }
 
