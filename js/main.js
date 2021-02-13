@@ -51,6 +51,43 @@ const NAMES = [
   'Оля'
 ]
 
+const URL = [
+  'photo/1.jpg',
+  'photo/2.jpg',
+  'photo/3.jpg',
+  'photo/4.jpg',
+  'photo/5.jpg',
+  'photo/6.jpg',
+  'photo/7.jpg',
+  'photo/8.jpg',
+  'photo/9.jpg',
+  'photo/10.jpg',
+  'photo/11.jpg',
+  'photo/12.jpg',
+  'photo/13.jpg',
+  'photo/14.jpg',
+  'photo/15.jpg',
+  'photo/16.jpg',
+  'photo/17.jpg',
+  'photo/18.jpg',
+  'photo/19.jpg',
+  'photo/20.jpg',
+  'photo/21.jpg',
+  'photo/22.jpg',
+  'photo/23.jpg',
+  'photo/24.jpg',
+  'photo/25.jpg'
+]
+
+const AVATARS = [
+  'img/avatar-1.svg',
+  'img/avatar-2.svg',
+  'img/avatar-3.svg',
+  'img/avatar-4.svg',
+  'img/avatar-5.svg',
+  'img/avatar-6.svg'
+]
+
 const COMMENTS = [
     'Всё отлично!',
     'В целом всё неплохо. Но не всё',
@@ -60,22 +97,44 @@ const COMMENTS = [
     'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
 ]
 
-const createArr = () => {
+const FULL_INFO_MESSAGE = 25;
 
-  return  {
-    id: getRandomInRange(1, 25),
-    url: '',
-    description: DESCRIPTIONS[getRandomInRange(0, DESCRIPTIONS.length)],
-    likes: getRandomInRange(40, 500)
+
+const getRandomArrayElement = (elements) => {
+  return elements[getRandomInRange(0, elements.length -1)]
+}
+
+const createMessages= () => {
+
+  return {
+    id: getRandomInRange(1, 500),
+    avatar: getRandomArrayElement(AVATARS),
+    message: getRandomArrayElement(COMMENTS),
+    name: getRandomArrayElement(NAMES),
   }
 }
 
-console.log(createArr())
+console.log(createMessages())
+
+
+
+const createFotoInfo = () => {
+
+  return  {
+    id: getRandomInRange(1, 25),
+    url: getRandomArrayElement(URL),
+    description: getRandomArrayElement(DESCRIPTIONS),
+    likes: getRandomInRange(15, 200),
+    comments: createMessages()
+  }
+}
+
+console.log(createFotoInfo())
 
 
 
 
 
-// const createArr2 = () => {
-//
-// }
+const fullInfoMessage = new Array(FULL_INFO_MESSAGE).fill(null).map( () => createFotoInfo());
+
+console.log(fullInfoMessage)
