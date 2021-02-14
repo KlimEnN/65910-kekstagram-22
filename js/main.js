@@ -1,129 +1,93 @@
-// Функция, которое возвращает случайно число из диапозона, и вкючает крайние значения
-// http://code.mu/ru/javascript/manual/math/Math.random/
+// Обьявляем константы для задания
+const INITIAL_POST_COUNT = 25; // по-умаолчанию надо 25, для теста поставил 2
 
-function getRandomInRange(min, max) {
-  if (min >= 0 && max >=1) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-  } else {
-    // eslint-disable-next-line no-console
-    console.log('error');
-  }
-}
+const DESCRIPTION_LIST = [
+  'Жить только для себя — есть злоупотребление.',
+  'Приятно следовать внушениям совести.',
+  'Глупость бывает двух родов: молчаливая и болтливая.',
+  'Для людей работа является наслаждением.',
+  'Честь дороже жизни.',
+  'Целью общества является всеобщее счастье.',
+  'Верная любовь помогает переносить все тяжести.',
+  'Кто стал дружить с тобой для обретенья благ, Не друг надежный твой, а самый страшный враг.',
+]
 
+const NAMES_LIST = [
+  'Сайвард "Беспощадный"',
+  'Элвина "Безумный Глаз"',
+  'Черноглазый Бизон',
+  'Бодрая Ваделси',
+  'Чудак Крoсли',
+  'Энор Чандлер',
+  'Кен Саймон',
+  'Крофтон Мерсер',
+  'Фэй Шортер',
+  'Адисон Фишоп',
+  'Симисола',
+  'Ифунания',
+  'Энитан',
+  'Абена',
+  'Анули',
+  'Тлексиктли',
+  'Зьянья',
+  'Найт',
+  'Ачкохтли',
+  'Ихуикатл',
+]
 
+const MESSAGES_LIST = [
+  'Всё отлично!',
+  'Подтверждено: солнечных дней всё меньше',
+  'В целом всё неплохо. Но не всё.',
+  'Оказывается, средства индивидуальной защиты оказались бесполезны!',
+  'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
+  'Моя бабушка случайно чихнула с фотоаппаратом в руках и у неё получилась фотография лучше.',
+  'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
+  'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!',
+  'Внезапно, герцог графства коронован',
+  'Противоположная точка зрения подразумевает, что сделанные на базе интернет-аналитики выводы разоблачены.',
+]
 
-//Функция, которая будет считать количество символов в поле комментариев
-//Переменная, которая задает допустимое количество символов в коммментрии. Логично использовать константу
-const MAX_ALLOWED_COMMENT_LENGTH = 140;
-//Переменная, которя используется для тестирования функции. Далее мы будем получать строку от пользователя
-// eslint-disable-next-line no-unused-vars
-const COMMENT_STRING = 'Комментарий';
-
-// Функция, которая проверяет длинну комментария
-// eslint-disable-next-line no-unused-vars
-const isAllowedString = function(COMMENT_STRING, MAX_ALLOWED_COMMENT_LENGT) {
-  if (COMMENT_STRING.length <= MAX_ALLOWED_COMMENT_LENGTH) {
-    return true;
-  } else {
-    return false;
-  }
-};
-
+// Пишем утилитарные функции для реиспользования
+const getRandomIndex = (array) => array[Math.floor(Math.random()*array.length)];
 const getRandomInteger = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+const generateId = () => Math.floor(Math.random() * Math.floor(Math.random() * Date.now()));
+const isAllowedString = (string,maxLength) => (string.length <= maxLength) ? true : false;
+// Выносим рендеринг в отельную функцию для 2 рендеринов, она принимает параметр  length в который передаем длину массива, а параметр cb это функция коллбек которую мы подставим что бы вызвать функции ниже
+//const generateInfo = (length,cb) => new Array(length).fill().map(cb);
 
-
-const DESCRIPTIONS = [
-  'описание фото #1',
-  'описание фото #2',
-  'описание фото #3',
-  'описание фото #4',
-  'описание фото #5'
-  ];
-
-const NAMES = [
-  'Андрей',
-  'Маша',
-  'Максим',
-  'Олег',
-  'Оля'
-]
-
-const URL = [
-  'photo/1.jpg',
-  'photo/2.jpg',
-  'photo/3.jpg',
-  'photo/4.jpg',
-  'photo/5.jpg',
-  'photo/6.jpg',
-  'photo/7.jpg',
-  'photo/8.jpg',
-  'photo/9.jpg',
-  'photo/10.jpg',
-  'photo/11.jpg',
-  'photo/12.jpg',
-  'photo/13.jpg',
-  'photo/14.jpg',
-  'photo/15.jpg',
-  'photo/16.jpg',
-  'photo/17.jpg',
-  'photo/18.jpg',
-  'photo/19.jpg',
-  'photo/20.jpg',
-  'photo/21.jpg',
-  'photo/22.jpg',
-  'photo/23.jpg',
-  'photo/24.jpg',
-  'photo/25.jpg'
-]
-
-
-const COMMENTS = [
-    'Всё отлично!',
-    'В целом всё неплохо. Но не всё',
-    'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
-    'Моя бабушка случайно чихнула с фотоаппаратом в руках и у неё получилась фотография лучше.',
-    'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
-    'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
-]
-
-const FULL_INFO_MESSAGE = 1;
-
-
-const getRandomArrayElement = (elements) => {
-  return elements[getRandomInRange(0, elements.length -1)]
-}
-
+// createComment функция рендеринга обьекта с коментариями
 const createComment = () => {
 
+// Подставляем аватарки от 1 до 6
   const randomUrlIndex = getRandomInteger(1,6);
-
+  // А тут просто возвраем обьект
   return {
-    id: getRandomInRange(1, 500),
+    id: generateId(),
     avatar: `img/avatar-${randomUrlIndex}.svg`,
-    message: getRandomArrayElement(COMMENTS),
-    name: getRandomArrayElement(NAMES),
+    message: getRandomIndex(MESSAGES_LIST),
+    name: getRandomIndex(NAMES_LIST),
   }
 }
 
-const generateInfo = (length,cb) => new Array(length).fill().map(cb);
+// createPost главная функция для рендеринга всего финального обьекта , в параметре прокидываем индекс который потом подставляем в фотки и id, из за чего мы получаем уникальные значения в каждом обьекте
+const createPost = (index) => {
+  //На каждой итерации вызываем эту функцию которая генерит нам обьекты с коментами от 1 до 5
+  const commentInfo = new Array(getRandomInteger(1,5)).fill().map(createComment);
 
-const createFotoInfo = () => {
-
-  const commentInfo = generateInfo(getRandomInteger(1,5)
-    ,createComment);
-
-  return  {
-    id: getRandomInRange(1, 25),
-    url: getRandomArrayElement(URL),
-    description: getRandomArrayElement(DESCRIPTIONS),
-    likes: getRandomInRange(15, 200),
+  return {
+    id: index,
+    url: `photos/${++index}.jpg`,
+    description: getRandomIndex(DESCRIPTION_LIST),
+    likes: getRandomInteger(15,200),
     comments: commentInfo,
   }
 }
 
+// финальная константа, в которую записываем полный обьект, и  в аномниной функции прокидываем счетчик(это встроено в метод map() в массиве)
+const generatedPostList = new Array(INITIAL_POST_COUNT).fill().map((_,i) => createPost(i));
+
+console.log(generatedPostList)
 
 
 
-const fullInfoMessage = new Array(FULL_INFO_MESSAGE).fill(null).map( () => createFotoInfo());
-
-console.log(fullInfoMessage)
