@@ -11,10 +11,6 @@ function getRandomInRange(min, max) {
 }
 
 
-// eslint-disable-next-line no-console
-// console.log(getRandomInRange(10, 100));
-
-
 
 //Функция, которая будет считать количество символов в поле комментариев
 //Переменная, которая задает допустимое количество символов в коммментрии. Логично использовать константу
@@ -80,14 +76,6 @@ const URL = [
   'photo/25.jpg'
 ]
 
-const AVATARS = [
-  'img/avatar-1.svg',
-  'img/avatar-2.svg',
-  'img/avatar-3.svg',
-  'img/avatar-4.svg',
-  'img/avatar-5.svg',
-  'img/avatar-6.svg'
-]
 
 const COMMENTS = [
     'Всё отлично!',
@@ -105,7 +93,7 @@ const getRandomArrayElement = (elements) => {
   return elements[getRandomInRange(0, elements.length -1)]
 }
 
-const createMessages= () => {
+const createComment = () => {
 
   const randomUrlIndex = getRandomInteger(1,6);
 
@@ -117,19 +105,19 @@ const createMessages= () => {
   }
 }
 
-
-
-
+const generateInfo = (length,cb) => new Array(length).fill().map(cb);
 
 const createFotoInfo = () => {
 
+  const commentInfo = generateInfo(getRandomInteger(1,5)
+    ,createComment);
 
   return  {
     id: getRandomInRange(1, 25),
     url: getRandomArrayElement(URL),
     description: getRandomArrayElement(DESCRIPTIONS),
     likes: getRandomInRange(15, 200),
-    comments: createMessages()
+    comments: commentInfo,
   }
 }
 
