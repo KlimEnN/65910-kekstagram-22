@@ -33,7 +33,8 @@ const isAllowedString = function(COMMENT_STRING, MAX_ALLOWED_COMMENT_LENGT) {
   }
 };
 
-const ID = [1, 2]
+const getRandomInteger = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+
 
 const DESCRIPTIONS = [
   'описание фото #1',
@@ -97,7 +98,7 @@ const COMMENTS = [
     'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
 ]
 
-const FULL_INFO_MESSAGE = 25;
+const FULL_INFO_MESSAGE = 1;
 
 
 const getRandomArrayElement = (elements) => {
@@ -106,19 +107,22 @@ const getRandomArrayElement = (elements) => {
 
 const createMessages= () => {
 
+  const randomUrlIndex = getRandomInteger(1,6);
+
   return {
     id: getRandomInRange(1, 500),
-    avatar: getRandomArrayElement(AVATARS),
+    avatar: `img/avatar-${randomUrlIndex}.svg`,
     message: getRandomArrayElement(COMMENTS),
     name: getRandomArrayElement(NAMES),
   }
 }
 
-console.log(createMessages())
+
 
 
 
 const createFotoInfo = () => {
+
 
   return  {
     id: getRandomInRange(1, 25),
@@ -128,9 +132,6 @@ const createFotoInfo = () => {
     comments: createMessages()
   }
 }
-
-console.log(createFotoInfo())
-
 
 
 
