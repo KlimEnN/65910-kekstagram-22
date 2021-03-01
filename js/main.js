@@ -2,7 +2,7 @@
 
 import { generateId, getRandomInteger, getRandomIndex } from './util.js';
 import {INITIAL_POST_COUNT, DESCRIPTION_LIST, MESSAGES_LIST, NAMES_LIST} from './data.js';
-
+import './mini-photo.js'
 
 // createComment функция рендеринга обьекта с коментариями
 const createComment = () => {
