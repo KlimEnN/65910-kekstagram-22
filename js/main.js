@@ -1,14 +1,15 @@
 'use strict'
 
+import { generateId, getRandomInteger, getRandomIndex } from './util.js';
 import {INITIAL_POST_COUNT, DESCRIPTION_LIST, MESSAGES_LIST, NAMES_LIST} from './data.js';
-import {generateId, getRandomIndex, getRandomInteger } from './util.js'
-
 
 
 // createComment функция рендеринга обьекта с коментариями
 const createComment = () => {
 
-// Подставляем аватарки от 1 до 6
+  /*
+   Подставляем аватарки от 1 до 6
+  */
   const randomUrlIndex = getRandomInteger(1,6);
   // А тут просто возвраем обьект
   return {
@@ -37,4 +38,9 @@ const createPost = (index) => {
 // финальная константа, в которую записываем полный обьект, и  в аномниной функции прокидываем счетчик(это встроено в метод map() в массиве)
 const generatedPostList = new Array(INITIAL_POST_COUNT).fill().map((_,i) => createPost(i));
 
+
 console.log(generatedPostList)
+
+
+
+
