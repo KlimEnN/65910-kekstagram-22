@@ -7,4 +7,8 @@ const isAllowedString = (string,maxLength) => (string.length <= maxLength) ? tru
 // Выносим рендеринг в отельную функцию для 2 рендеринов, она принимает параметр  length в который передаем длину массива, а параметр cb это функция коллбек которую мы подставим что бы вызвать функции ниже
 //const generateInfo = (length,cb) => new Array(length).fill().map(cb);
 
-export {generateId, getRandomIndex, getRandomInteger, isAllowedString};
+const isEscEvent = (evt) => {
+  return evt.key === ('Escape' || 'Esc');
+};
+
+export {generateId, getRandomIndex, getRandomInteger, isAllowedString,isEscEvent};
