@@ -2,7 +2,7 @@
 import {getRandomIndex, getRandomInteger} from './util.js';
 import {createComment} from './create-comment.js';
 import {DESCRIPTION_LIST} from './data.js';
-import './mini-photo.js'
+
 
 export const createPost = (index) => {
   //На каждой итерации вызываем эту функцию которая генерит нам обьекты с коментами от 1 до 5
