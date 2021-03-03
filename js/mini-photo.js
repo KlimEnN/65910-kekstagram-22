@@ -3,11 +3,10 @@ import {createPost} from './create-post.js';
 import {INITIAL_POST_COUNT} from './data.js'
 
 
-const miniPhotoList = document.querySelector('.pictures__title')
+const miniPhotoList = document.querySelector('.pictures')
 const templateMiniPhoto = document.querySelector('#picture')
   .content
   .querySelector('.picture');
-
 
 
 const pictureListFragment = document.createDocumentFragment();
@@ -18,7 +17,7 @@ photoList.forEach(({url, likes, comments}) => {
   pictureElement.querySelector('.picture__likes').textContent = likes;
   pictureElement.querySelector('.picture__comments').textContent = comments.length;
 
-  pictureListFragment.appendChild(pictureElement)
+  pictureListFragment.appendChild(pictureElement);
 });
 
 miniPhotoList.appendChild(pictureListFragment)
