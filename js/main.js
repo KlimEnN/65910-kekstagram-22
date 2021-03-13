@@ -2,8 +2,7 @@
 
 import {generateId, getRandomIndex, getRandomInteger, isEscEvent} from './util.js';
 
-
-const INITIAL_POST_COUNT = 25; // по-умаолчанию надо 25, для теста поставил 2
+const INITIAL_POST_COUNT = 11; // по-умаолчанию надо 25, для теста поставил 2
 const DESCRIPTION_LIST = [
   'Жить только для себя — есть злоупотребление.',
   'Приятно следовать внушениям совести.',
@@ -49,20 +48,6 @@ const MESSAGES_LIST = [
   'Противоположная точка зрения подразумевает, что сделанные на базе интернет-аналитики выводы разоблачены.',
 ]
 
-
-
-const userModalCloseElement= document.querySelector('.big-picture__cancel')
-const miniPhotoList = document.querySelector('.pictures')
-const templateMiniPhoto = document.querySelector('#picture')
-  .content
-  .querySelector('.picture');
-const clickPictureToOpen = document.querySelectorAll('.picture');
-const bigPhotoModal = document.querySelector('.big-picture');
-const img = bigPhotoModal.querySelector('.big-picture__img img')
-
-
-
-
 const createComment = () => {
   const randomUrlIndex = getRandomInteger(1,6);
   return {
@@ -85,50 +70,96 @@ const createPost = (index) => {
 }
 
 
+const userModalCloseElement= document.querySelector('.big-picture__cancel')
+console.log(userModalCloseElement)
+
+const miniPhotoList = document.querySelector('.pictures')
+console.log(miniPhotoList)
+
+const templateMiniPhoto = document.querySelector('#picture')
+  .content
+  .querySelector('.picture');
+
+console.log(templateMiniPhoto)
+
+
+const bigPhotoModal = document.querySelector('.big-picture');
+console.log(bigPhotoModal)
+
+const img = bigPhotoModal.querySelector('.big-picture__img img')
+console.log(img)
+
+
+const comentsListInPhoto = document.querySelector('.social__comments');
+console.log(comentsListInPhoto)
+
+
+const commentsInPhoto = document.querySelector('.social__picture');
+console.log(commentsInPhoto)
+
+
+const likesInPhoto = document.querySelector('.picture__likes');
+console.log(likesInPhoto)
+
+
+
+
+
 const pictureListFragment = document.createDocumentFragment();
 const photoList = new Array(INITIAL_POST_COUNT).fill().map((_,i) => createPost(i));
+console.log(photoList)
 photoList.forEach(({url, likes, comments}) => {
   const pictureElement = templateMiniPhoto.cloneNode(true);
   pictureElement.querySelector('.picture__img').src = url;
   pictureElement.querySelector('.picture__likes').textContent = likes;
   pictureElement.querySelector('.picture__comments').textContent = comments.length;
+  // pictureElement.querySelector('.likes-count').textContent = likes;
 
   pictureListFragment.appendChild(pictureElement);
+
 });
 miniPhotoList.appendChild(pictureListFragment)
 
 
+const clickPictureToOpen = document.querySelectorAll('.picture');
+console.log(clickPictureToOpen)
+
+const likeCount = document.querySelector('.likes-count');
 
 
-  clickPictureToOpen.forEach((picture) => {
+clickPictureToOpen.forEach((picture) => {
   picture.addEventListener('click', () => {
-      img.src = picture.querySelector('.picture__img').src;
-      bigPhotoModal.classList.remove('hidden');
+    bigPhotoModal.classList.remove('hidden');
+    img.src = picture.querySelector('.picture__img').src;
+    likeCount.textContent = picture.querySelector('.picture__likes').textContent
       document.addEventListener('keydown', (evt) => {
-        if (isEscEvent(evt)) {
-          evt.preventDefault();
-          bigPhotoModal.classList.add('hidden');
-        }
-      });
-    })
-  });
+      if (isEscEvent(evt)) {
+        evt.preventDefault();
+        bigPhotoModal.classList.add('hidden');
+      }
+    });
+  })
+});
 
 userModalCloseElement.addEventListener('click', () => {
   bigPhotoModal.classList.add('hidden');
 });
 
-const comentsListInPhoto = document.querySelector('.social__comments');
-const likesInPhoto = document.querySelector('.likes-count');
-const commentsInPhoto = document.querySelector('.social__picture');
 
-const comentsListFragment = document.createDocumentFragment();
-const comentsList = new Array(getRandomInteger(1, 2)).fill().map(createComment);
-comentsList.forEach(({url, likes, comments}) => {
-  // document.querySelector('.big-picture__img').src ;
-  // document.querySelector('.likes-count').textContent = likes;
-  // document.querySelector('.comments-count').textContent = comments.length;
-  //
-  // comentsListFragment.appendChild(photoList);
-});
 
-comentsListInPhoto.appendChild(comentsListFragment)
+
+
+
+
+
+// const comentsListFragment = document.createDocumentFragment();
+// const comentsList = new Array(getRandomInteger(1, 2)).fill().map(createComment);
+// comentsList.forEach(({url, likes, comments}) => {
+//   document.querySelector('.big-picture__img').src ;
+//   document.querySelector('.likes-count').textContent = likes;
+//   document.querySelector('.comments-count').textContent = comments.length;
+//
+//   comentsListFragment.appendChild(photoList);
+// });
+//
+// comentsListInPhoto.appendChild(comentsListFragment)
