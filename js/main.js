@@ -2,7 +2,7 @@
 
 import {generateId, getRandomIndex, getRandomInteger, isEscEvent} from './util.js';
 
-const INITIAL_POST_COUNT = 11; // по-умаолчанию надо 25, для теста поставил 2
+const INITIAL_POST_COUNT = 11;
 const DESCRIPTION_LIST = [
   'Жить только для себя — есть злоупотребление.',
   'Приятно следовать внушениям совести.',
@@ -71,24 +71,13 @@ const createPost = (index) => {
 
 
 const userModalCloseElement= document.querySelector('.big-picture__cancel')
-console.log(userModalCloseElement)
-
 const miniPhotoList = document.querySelector('.pictures')
-console.log(miniPhotoList)
-
 const templateMiniPhoto = document.querySelector('#picture')
   .content
   .querySelector('.picture');
 
-console.log(templateMiniPhoto)
-
-
 const bigPhotoModal = document.querySelector('.big-picture');
-console.log(bigPhotoModal)
-
 const img = bigPhotoModal.querySelector('.big-picture__img img')
-console.log(img)
-
 
 const comentsListInPhoto = document.querySelector('.social__comments');
 console.log(comentsListInPhoto)
@@ -101,37 +90,49 @@ console.log(commentsInPhoto)
 const likesInPhoto = document.querySelector('.picture__likes');
 console.log(likesInPhoto)
 
-
-
+const socialCaption = document.querySelector('.social__caption')
+const pictureComments = document.querySelector('.picture__comments')
 
 
 const pictureListFragment = document.createDocumentFragment();
 const photoList = new Array(INITIAL_POST_COUNT).fill().map((_,i) => createPost(i));
-console.log(photoList)
+// console.log(photoList)
 photoList.forEach(({url, likes, comments}) => {
   const pictureElement = templateMiniPhoto.cloneNode(true);
   pictureElement.querySelector('.picture__img').src = url;
   pictureElement.querySelector('.picture__likes').textContent = likes;
   pictureElement.querySelector('.picture__comments').textContent = comments.length;
-  // pictureElement.querySelector('.likes-count').textContent = likes;
+
+  comments.forEach((comment,message, avatar) =>{
+
+    bigPhotoModal.querySelector('.social__picture').src = avatar;
+    bigPhotoModal.querySelector('.social__text').textContent = comment.message
+
+  })
+
 
   pictureListFragment.appendChild(pictureElement);
 
 });
+
 miniPhotoList.appendChild(pictureListFragment)
 
 
-const clickPictureToOpen = document.querySelectorAll('.picture');
-console.log(clickPictureToOpen)
 
+
+
+const clickPictureToOpen = document.querySelectorAll('.picture');
 const likeCount = document.querySelector('.likes-count');
+const commentsCount = document.querySelector('.social__comment-count')
+
 
 
 clickPictureToOpen.forEach((picture) => {
   picture.addEventListener('click', () => {
     bigPhotoModal.classList.remove('hidden');
     img.src = picture.querySelector('.picture__img').src;
-    likeCount.textContent = picture.querySelector('.picture__likes').textContent
+    likeCount.textContent = picture.querySelector('.picture__likes').textContent;
+    commentsCount.textContent = picture.querySelector('.picture__comments').textContent;
       document.addEventListener('keydown', (evt) => {
       if (isEscEvent(evt)) {
         evt.preventDefault();
@@ -149,17 +150,3 @@ userModalCloseElement.addEventListener('click', () => {
 
 
 
-
-
-
-// const comentsListFragment = document.createDocumentFragment();
-// const comentsList = new Array(getRandomInteger(1, 2)).fill().map(createComment);
-// comentsList.forEach(({url, likes, comments}) => {
-//   document.querySelector('.big-picture__img').src ;
-//   document.querySelector('.likes-count').textContent = likes;
-//   document.querySelector('.comments-count').textContent = comments.length;
-//
-//   comentsListFragment.appendChild(photoList);
-// });
-//
-// comentsListInPhoto.appendChild(comentsListFragment)
